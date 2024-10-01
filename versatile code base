@@ -1,0 +1,155 @@
+Linked lists are data structures used in many problems. Below is Python code that defines a basic singly linked list and then provides solutions to several common types of linked list problems:
+
+Insertion (at the beginning, end, or a specific position).
+Deletion (by value, at a position).
+Reverse a linked list.
+Detect a cycle.
+Find the middle of the linked list.
+The LinkedList and Node classes provide a foundation for handling linked list problems. You can add more specific algorithms as needed.
+# Node class to represent each element in the linked list
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+# LinkedList class with various functionalities
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # Insertion at the beginning of the list
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    # Insertion at the end of the list
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    # Insert after a specific node
+    def insert_after(self, prev_node_data, data):
+        new_node = Node(data)
+        current = self.head
+        while current:
+            if current.data == prev_node_data:
+                new_node.next = current.next
+                current.next = new_node
+                return
+            current = current.next
+        print(f"Node with data {prev_node_data} not found")
+
+    # Deletion by value
+    def delete_node(self, key):
+        temp = self.head
+        # If head node itself holds the key
+        if temp and temp.data == key:
+            self.head = temp.next
+            temp = None
+            return
+        # Search for the key
+        prev = None
+        while temp and temp.data != key:
+            prev = temp
+            temp = temp.next
+        if temp is None:
+            print(f"Node with value {key} not found")
+            return
+        prev.next = temp.next
+        temp = None
+
+    # Reverse the linked list
+    def reverse(self):
+        prev = None
+        current = self.head
+        while current:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+        self.head = prev
+
+    # Detect cycle in the linked list (Floyd’s Cycle-Finding Algorithm)
+    def detect_cycle(self):
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while slow_ptr and fast_ptr and fast_ptr.next:
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+            if slow_ptr == fast_ptr:
+                return True
+        return False
+
+    # Find the middle of the linked list (Floyd's Tortoise and Hare)
+    def find_middle(self):
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while fast_ptr and fast_ptr.next:
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+        return slow_ptr.data if slow_ptr else None
+
+    # Print the linked list
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+# Example usage
+if __name__ == "__main__":
+    ll = LinkedList()
+
+    # Insert elements
+    ll.insert_at_end(10)
+    ll.insert_at_end(20)
+    ll.insert_at_end(30)
+    ll.insert_at_beginning(5)
+    ll.insert_after(20, 25)
+
+    print("Original List:")
+    ll.print_list()
+
+    # Reverse the list
+    ll.reverse()
+    print("Reversed List:")
+    ll.print_list()
+
+    # Find middle
+    middle = ll.find_middle()
+    print(f"Middle of the list: {middle}")
+
+    # Detect cycle
+    has_cycle = ll.detect_cycle()
+    print(f"List has cycle: {has_cycle}")
+
+    # Deletion
+    ll.delete_node(20)
+    print("List after deleting 20:")
+    ll.print_list()
+Key Features:
+Insertions:
+
+At the beginning: insert_at_beginning(data)
+At the end: insert_at_end(data)
+After a specific node: insert_after(prev_node_data, data)
+Deletions:
+
+By value: delete_node(key)
+Reverse the list: reverse()
+
+Detect a cycle in the list: detect_cycle(). This uses Floyd's Cycle-Finding Algorithm.
+
+Find the middle element: find_middle(). Uses the slow and fast pointer technique.
+
+Print the list: print_list() for displaying the linked list.
+
+This is a versatile code base for solving various types of linked list problems, and you can modify or extend it based on more specific problems like removing duplicates, merging two linked lists, and so on.
