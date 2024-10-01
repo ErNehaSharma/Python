@@ -107,30 +107,30 @@ class LinkedList:
 # Example usage
 if __name__ == "__main__":
     ll = LinkedList()
-    
+
     # Insert elements
     ll.insert_at_end(10)
     ll.insert_at_end(20)
     ll.insert_at_end(30)
     ll.insert_at_beginning(5)
     ll.insert_after(20, 25)
-    
+
     print("Original List:")
     ll.print_list()
-    
+
     # Reverse the list
     ll.reverse()
     print("Reversed List:")
     ll.print_list()
-    
+
     # Find middle
     middle = ll.find_middle()
     print(f"Middle of the list: {middle}")
-    
+
     # Detect cycle
     has_cycle = ll.detect_cycle()
     print(f"List has cycle: {has_cycle}")
-    
+
     # Deletion
     ll.delete_node(20)
     print("List after deleting 20:")
